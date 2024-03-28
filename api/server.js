@@ -24,16 +24,31 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // -------------------- Static Assets --------------------npm run dev
-// pp.use(express.static(path.join(__dirname, 'public')) )
+// app.use(express.static(path.join(__dirname, 'public')) )
 
 
 // ------------------------ Routes ----------------------- //
-// app.use('/', require('./routes/index'))
 
 
-app.get('/', (req, res) => {
-    res.send('Bbbbetaaaa Boarrrrrrd!');
+app.get('/section', (req, res) => {
+    const part1 = 'Hello ';
+    const part2 = 'SECTION YO!';
+    const result = part1 + part2;
+
+    setTimeout(() => {
+        res.send(result);
+    }, 5000); 
 });
+
+app.get('/setter-setup', (req, res) => {
+    const part1 = 'Hello setter ';
+    const part2 = 'you are awesome!';   
+    const result = part1 + part2;       
+
+    setTimeout(() => {  
+        res.send(result);  
+    }, 2000);
+})
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
