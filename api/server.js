@@ -23,12 +23,20 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
 }
 
-// -------------------- Static Assets --------------------npm run dev
+// -------------------- Static Assets --------------------//
 // app.use(express.static(path.join(__dirname, 'public')) )
 
 
 // ------------------------ Routes ----------------------- //
+app.get('/', (req, res) => {
+    const part1 = 'Yooooo ';
+    const part2 = 'SECTION YO!';
+    const result = part1 + part2;
 
+    setTimeout(() => {
+        res.send(result);
+    }, 5000); 
+});
 
 app.get('/section', (req, res) => {
     const part1 = 'Hello ';
