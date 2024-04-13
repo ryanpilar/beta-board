@@ -11,9 +11,10 @@ interface Item {
 interface SortableLinkCardProps {
     id: Item;
     onDelete: (id: number) => void;
+    changeView: any
 }
 
-const SortableLinks: FC<SortableLinkCardProps> = ({ id, onDelete }) => {
+const SortableLinks: FC<SortableLinkCardProps> = ({ id, onDelete, changeView}) => {
     const uniqueId = id.id;
     const {
         attributes,
@@ -28,8 +29,11 @@ const SortableLinks: FC<SortableLinkCardProps> = ({ id, onDelete }) => {
         transition,
     };
 
-    const handleButtonClick = () => {
+    const handleRemoval = () => {
         onDelete(uniqueId);
+    };
+    const changeMainWindowView = () => {
+        changeView()
     };
 
     const isCursorGrabbing = attributes['aria-pressed'];
@@ -39,8 +43,13 @@ const SortableLinks: FC<SortableLinkCardProps> = ({ id, onDelete }) => {
             <Card className='p-4 relative flex justify-between gap-5 group'>
                 <div>{id.name}</div>
                 <div className='flex justify-center items-center gap-4'>
-                    <button className="hidden group-hover:block" onClick={handleButtonClick}>
+                    {/* EDIT */}
+                    <button className="hidden group-hover:block" onClick={handleRemoval}>
                         <svg className='text-red-500' xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                    </button>
+                    {/* DELETE */}
+                    <button className="hidden group-hover:block" onClick={()=>changeView()}>
+                        <svg className='text-green-500' xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                     </button>
                     <button {...attributes} {...listeners} className={` ${isCursorGrabbing ? 'cursor-grabbing' : 'cursor-grab'}`} aria-describedby={`DndContext-${uniqueId}`}>
                         <svg viewBox="0 0 20 20" width="15">

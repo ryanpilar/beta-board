@@ -25,17 +25,22 @@ import SortableLinks from '@/components/SortableLinks';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { AddNewItem } from '@/components/AddNewItem';
 
-// Define the item interface
 interface Item {
   name: string;
   id: number;
 }
-
-interface HomeProps {
-  // You can add any additional props if needed
+interface ItemProps {
+  name: string
+  id: number
+}
+interface DNDProps {
+  defaultItems: Item[]
+  label: string
+  setMainWindow: any
 }
 
-const Home: React.FC<HomeProps> = () => {
+const DND: React.FC<DNDProps> = ({ defaultItems, label, setMainWindow }) => {
+
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -43,12 +48,7 @@ const Home: React.FC<HomeProps> = () => {
     })
   );
 
-  const [items, setItems] = useState<Item[]>([
-    { name: 'Zone 1', id: 1693653637084 },
-    { name: 'Zone 2', id: 1693653637086 },
-    { name: 'Zone 3', id: 1693653637088 },
-    { name: 'Zone 4', id: 1693653637090 },
-  ]);
+  const [items, setItems] = useState<Item[]>(defaultItems);
 
   function handleDragEnd(event: any) {
     const { active, over } = event;
@@ -74,11 +74,11 @@ const Home: React.FC<HomeProps> = () => {
   }
 
   return (
-    <main className='flex justify-center items-center h-screen px-2 mx-auto select-none'>
+    <main className='flex justify-center px-2 mx-auto select-none'>
       <Card className='w-full md:max-w-lg'>
         <CardHeader className='space-y-1 '>
           <CardTitle className='text-2xl flex justify-between'>
-            Frameworks
+            {label}
             <AddNewItem addNewItem={addNewItem} />
           </CardTitle>
           <CardDescription>List Popular web development frameworks</CardDescription>
@@ -91,9 +91,13 @@ const Home: React.FC<HomeProps> = () => {
             modifiers={[restrictToVerticalAxis, restrictToParentElement]}
           >
             <SortableContext items={items} strategy={verticalListSortingStrategy}>
-              {items.map((item) => (
-                
-                <SortableLinks key={item.id} id={item} onDelete={handleDelete} />
+              {items.map((item, index) => (
+
+                // <div className='cursor-pointer' onClick={() => {
+                //   setMainWindow(index)
+                // }}>
+                  <SortableLinks key={item.id} id={item} onDelete={handleDelete} changeView={()=>setMainWindow(index+1)} />
+                // </div>
               ))}
             </SortableContext>
           </DndContext>
@@ -103,4 +107,4 @@ const Home: React.FC<HomeProps> = () => {
   );
 };
 
-export default Home;
+export default DND;
