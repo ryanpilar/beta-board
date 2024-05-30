@@ -73,7 +73,7 @@ export default function Dashboard() {
                         href="#"
                         className="text-muted-foreground transition-colors hover:text-foreground"
                     >
-                        Dashboardy
+                        Dashboard
                     </Link>
                     <Link
                         href="#"
@@ -183,18 +183,7 @@ export default function Dashboard() {
                 </div>
 
                 <div className='flex items-start'>
-                    <DND defaultItems={zoneItems} setMainWindow={setMainWindow} label='Zones' />
-                    {/* <DND defaultItems={sectionItems} label='Sections' /> */}
-
-                    <Card className="w-[550px]">
-                        <CardHeader>
-                            <CardTitle>{zoneItems[mainWindow].name}</CardTitle>
-                            <CardDescription>Deploy your new project in one-click.</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-
-                        </CardContent>
-                    </Card>
+                    <div className='flex flex-col gap-4 w-1/2'>Helllllo!</div>
                 </div>
 
             </main>
